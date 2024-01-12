@@ -1,7 +1,7 @@
 import os
 import requests
-import pandas as pd
-import datetime, time
+from datetime import datetime
+import time
 
 from cta_tracker.rgb_display import RGBDisplay
 from cta_tracker.secrets import api_key
@@ -15,7 +15,7 @@ class CTAtracker():
         self.url_args = url_args
         self.url = CTAtracker.url_constructor(self)
         """
-        Class that wil ping CTA API and return relevant information in JSON format. 
+        Class that will ping CTA API and return relevant information in JSON format. 
         """
     def url_constructor(self):
         """
@@ -45,7 +45,7 @@ class CTAtracker():
         output:
             boolean
         """
-        now = datetime.datetime.now().time()
+        now = datetime.now().time()
         if start <= end:
             return start <= now <= end
         else:
@@ -68,7 +68,9 @@ class CTAtracker():
         for train in json_in:
             print(f"Station Name: {train['staNm']}")
             print(f"Direction: {train['stpDe']}")
-            time_until = (pd.to_datetime(train['arrT']) - pd.to_datetime(train['prdt'])) / pd.Timedelta(minutes=1)
+            difference = (datetime.strptime(train['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train['prdt'],
+                                                                                                    '%Y-%m-%dT%H:%M:%S'))
+            time_until = divmod(difference.total_seconds(), 60)[0]
             print(f"Time Until: {int(time_until)} min")
             if train['isDly'] == '1':
                 print('IS DELAYED')
