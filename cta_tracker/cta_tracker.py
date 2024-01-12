@@ -4,6 +4,7 @@ import pandas as pd
 import datetime, time
 
 from cta_tracker.rgb_display import RGBDisplay
+from cta_tracker.secrets import api_key
 
 class CTAtracker():
     def __init__(self, time_args, url_args):
@@ -14,7 +15,7 @@ class CTAtracker():
         self.url_args = url_args
         self.url = CTAtracker.url_constructor(self)
         """
-        Class that will ping CTA API and return relevant information in JSON format. 
+        Class that wil ping CTA API and return relevant information in JSON format. 
         """
     def url_constructor(self):
         """
@@ -23,7 +24,6 @@ class CTAtracker():
             mapid: list of strings representing different stops
         """
         # TODO: check kwargs. Make sure there is nothing unsupported in there.
-        api_key = '58db4a07133947608bcb1159f56ba297'
         url = f'http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key={api_key}&outputType=JSON'
         if 'stpid' in self.url_args.keys():
             for stop in self.url_args["stpid"]:
