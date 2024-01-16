@@ -95,6 +95,7 @@ class CTAtracker():
                 # ping every minute
                 json = self.curl_api(self.url)
                 print(type(json))
+                print(json)
                 print("Type of json)")
                 # self.json_cleaner(json)
                 rgb_display = RGBDisplay(json)
