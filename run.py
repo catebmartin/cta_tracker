@@ -10,7 +10,7 @@ time_args={
 
 url_args={
     'stpid':[],
-    'mapid':['40570'],
+    'mapid':['40570', '40571'],
     'max_results':8
 }
 

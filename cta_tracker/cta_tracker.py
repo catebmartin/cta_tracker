@@ -84,16 +84,20 @@ class CTAtracker():
             if isPeak:
                 # ping every 5 seconds
                 json = self.curl_api(self.url)
-                self.json_cleaner(json)
-                time.sleep(5)
+                # self.json_cleaner(json)
+                rgb_display = RGBDisplay(json)
+                rgb_display.display_json_response()
+                time.sleep(25)
             elif isSleep:
                 # do nothing. Sleep 10 minutes
                 time.sleep(10 * 60)
             else:
                 # ping every minute
                 json = self.curl_api(self.url)
-                self.json_cleaner(json)
+                # self.json_cleaner(json)
+                rgb_display = RGBDisplay(json)
+                rgb_display.display_json_response()
                 time.sleep(60)
-            os.system('cls')
-            print('REFRESH!')
-            os.system('cls')
+            # os.system('cls')
+            # print('REFRESH!')
+            # os.system('cls')
