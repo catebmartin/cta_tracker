@@ -3,7 +3,7 @@ import time
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 class RGBDisplay():
     def __init__(self, json_response_in):
-        self.json_response = json_response_in
+        self.json_response = json_response_in.json()
         self.maxtrix = RGBDisplay.matrix_constructor(self)
         self.font = RGBDisplay.font_loader(self)
         """
