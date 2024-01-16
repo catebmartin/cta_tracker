@@ -57,8 +57,8 @@ class CTAtracker():
         Requests url and returns specific portion of json.
         """
         r = requests.get(url_in)
-        print(r.json)
-        print(r.json.keys())
+        print(r.json())
+        print(r.json().keys())
         return r.json()['ctatt']['eta']
 
     @staticmethod

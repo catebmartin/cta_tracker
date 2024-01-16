@@ -5,14 +5,13 @@ class RGBDisplay():
     def __init__(self, json_response_in):
         self.json_response = json_response_in
         self.maxtrix = RGBDisplay.matrix_constructor(self)
-        self.canvas = self.matrix.CreateFrameCanvas()
         self.font = RGBDisplay.font_loader(self)
         """
         Class that will take JSON return by CTA API and display it in RGB. 
         """
     def matrix_constructor(self):
         options = RGBMatrixOptions()
-        options.row = 32
+        options.rows = 32
         options.cols = 64
         options.chain_length = 1
         options.parallel = 1
@@ -32,6 +31,7 @@ class RGBDisplay():
         '''
         station1 = train1['staNm']
         station2 = train2['staNm']
+        self.canvas = self.matrix.CreateFrameCanvas()
         difference1 = (datetime.strptime(train1['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train['prdt'],
                                                                                                 '%Y-%m-%dT%H:%M:%S'))
         time_until1 = str(divmod(difference1.total_seconds(), 60)[0])
