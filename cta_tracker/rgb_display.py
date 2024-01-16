@@ -19,7 +19,7 @@ class RGBDisplay():
         return RGBMatrix(options=options)
     def font_loader(self):
         font = graphics.Font()
-        font.LoadFont("/home/cat_pi0/rpi-rgb-led-matrix/fonts/5x5.bdf")
+        font.LoadFont("/home/cat_pi0/rpi-rgb-led-matrix/fonts/5x7.bdf")
         return font
 
     def scroll_two_trains(self, train1, train2):
