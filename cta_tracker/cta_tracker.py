@@ -57,8 +57,6 @@ class CTAtracker():
         Requests url and returns specific portion of json.
         """
         r = requests.get(url_in)
-        print(r.json())
-        print(r.json().keys())
         return r.json()['ctatt']['eta']
 
     @staticmethod
@@ -96,6 +94,8 @@ class CTAtracker():
             else:
                 # ping every minute
                 json = self.curl_api(self.url)
+                print(type(json))
+                print("Type of json)")
                 # self.json_cleaner(json)
                 rgb_display = RGBDisplay(json)
                 rgb_display.display_json_response()
