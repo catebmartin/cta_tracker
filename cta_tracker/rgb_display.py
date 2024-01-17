@@ -22,6 +22,14 @@ class RGBDisplay():
         font.LoadFont("/home/cat_pi0/rpi-rgb-led-matrix/fonts/5x7.bdf")
         return font
 
+    @staticmethod
+    def get_color(dest_in):
+        if dest_in == "O'Hare":
+            return graphics.Color(255, 255, 255)
+        if dest_in == "Forest Park":
+            return graphics.Color(0,157,255)
+        return graphics.Color(255,255,255)
+
     def scroll_two_trains(self, train1, train2):
         '''
         Take in details of two trains.  Led will scroll details 3 times before ending.
@@ -29,28 +37,26 @@ class RGBDisplay():
         :param train2: Json with details of train2
         :return: None. Display will be on LED Matrix
         '''
-        station1 = train1['destNm']
-        station2 = train2['destNm']
         matrix = self.matrix_constructor()
         self.canvas = matrix.CreateFrameCanvas()
+
+        station1 = train1['destNm']
+        station2 = train2['destNm']
         difference1 = (datetime.strptime(train1['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train1['prdt'],
                                                                                                 '%Y-%m-%dT%H:%M:%S'))
         time_until1 = str(int(divmod(difference1.total_seconds(), 60)[0]))
         difference2 = (datetime.strptime(train2['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train2['prdt'],
                                                                                                 '%Y-%m-%dT%H:%M:%S'))
         time_until2 = str(int(divmod(difference2.total_seconds(), 60)[0]))
+
         scroll_cutoff_idx = 13 #the led column at which left scroll stops for stations
         iter_count, scroll_count = 0, 0
-        if station1 == station2:
-            textColor1 = graphics.Color(255, 255, 255)  # white
-            textColor2 = graphics.Color(255, 255, 255)  # white
-        else:
-            textColor1 = graphics.Color(255, 255, 255)  # white
-            textColor2 = graphics.Color(0, 157, 255)  # cta blue
+        textColor1 = RGBDisplay.get_color(station1)
+        textColor2 = RGBDisplay.get_color(station2)
         while scroll_count <= 3:
             self.canvas.Clear()
-            graphics.DrawText(self.canvas, self.font, 1, 8, textColor1, time_until1)
-            graphics.DrawText(self.canvas, self.font, 1, 24, textColor1, time_until2)
+            graphics.DrawText(self.canvas, self.font, 1, 8, graphics.Color(255, 255, 255), time_until1)
+            graphics.DrawText(self.canvas, self.font, 1, 24, graphics.Color(255, 255, 255), time_until2)
             # start placement at left near cutoff.  Loop through and remove letters off the front
             graphics.DrawText(self.canvas, self.font, scroll_cutoff_idx, 8, textColor1, station1[iter_count:])
             graphics.DrawText(self.canvas, self.font, scroll_cutoff_idx, 24, textColor2, station2[iter_count:])
@@ -71,44 +77,3 @@ class RGBDisplay():
             train1 = self.json_response[i]
             train2 = self.json_response[i+1]
             self.scroll_two_trains(train1, train2)
-
-#sample code that works in ad hoc basis
-
-# options = RGBMatrixOptions()
-# options.row = 32
-# options.cols = 64
-# options.chain_length = 1
-# options.parallel = 1
-# options.hardware_mapping = 'adafruit-hat'
-# matrix = RGBMatrix(options = options)
-#
-# offscreen_canvas = matrix.CreateFrameCanvas()
-# font = graphics.Font()
-# font.LoadFont("/home/cat_pi0/rpi-rgb-led-matrix/fonts/5x5.bdf") #store path elsewhere
-#
-# min1 = '2'
-# loc1 = 'California'
-# min2 = '14'
-# loc2 = ('Logan Square')
-# scroll_cutoff = 13
-# iter_count = 0
-# if loc1 == loc2:
-#     textColor1 = graphics.Color(255,255,255) #white
-#     textColor2 = graphics.Color(255,255,255) #white
-# else:
-#     textColor1 = graphics.Color(255,255,255) #white
-#     textColor2 = graphics.Color(0,157,255) #cta blue
-# while True:
-#     offscreen_canvas.Clear()
-#     graphics.DrawText(offscreen_canvas, font, 1, 8, textColor1, min1)
-#     graphics.DrawText(offscreen_canvas, font, 1, 24, textColor1, min2)
-#     #start placement at left near cutoff.  Loop through and remove letters off the front
-#     graphics.DrawText(offscreen_canvas, font, scroll_cutoff, textColor1, loc1[:iter_count])
-#     graphics.DrawText(offscreen_canvas, font, scroll_cutoff, textColor2, loc2[:iter_count])
-#     offscreen_canvas = matrix.SwapOnVSync(offscreen_canvas)
-#     if iter_count == 0:
-#         time.sleep(2)
-#     time.sleep(0.25)
-#     iter_count+=1
-#     if iter_count > max(len(loc1), len(loc2)):
-#         iter_count = 0
