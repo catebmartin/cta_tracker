@@ -15,6 +15,7 @@ class RGBDisplay():
         options.chain_length = 1
         options.parallel = 1
         options.hardware_mapping = 'adafruit-hat'
+        options.drop_privileges = False
         return RGBMatrix(options=options)
     def font_loader(self):
         font = graphics.Font()
