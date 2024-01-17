@@ -1,4 +1,5 @@
 import datetime
+import sys
 from cta_tracker.cta_tracker import CTAtracker
 
 time_args={
@@ -15,7 +16,9 @@ url_args={
 }
 
 cta = CTAtracker(time_args, url_args)
-print(cta.peak_start)
-print(cta.url)
 
-cta.api_loop()
+try:
+    print('Keyboard interrupt supported.')
+    cta.api_loop()
+except KeyboardInterrupt:
+    sys.exit(0)
