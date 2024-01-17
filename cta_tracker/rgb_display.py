@@ -65,7 +65,7 @@ class RGBDisplay():
                 scroll_count+=1
     def display_json_response(self):
         #look at self.json response. how many trains in it?
-        train_pair_count = round(self.json_response/2)
+        train_pair_count = round(len(self.json_response)/2)
         for i in range(0,train_pair_count+2,2):
             train1 = self.json_response[i]
             train2 = self.json_response[i+1]
