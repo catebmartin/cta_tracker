@@ -51,8 +51,8 @@ class RGBDisplay():
             graphics.DrawText(self.canvas, self.font, 1, 8, textColor1, time_until1)
             graphics.DrawText(self.canvas, self.font, 1, 24, textColor1, time_until2)
             # start placement at left near cutoff.  Loop through and remove letters off the front
-            graphics.DrawText(self.canvas, self.font, scroll_cutoff_idx, 8, textColor1, station1[:iter_count])
-            graphics.DrawText(self.canvas, self.font, scroll_cutoff_idx, 24, textColor2, station2[:iter_count])
+            graphics.DrawText(self.canvas, self.font, scroll_cutoff_idx, 8, textColor1, station1[iter_count:])
+            graphics.DrawText(self.canvas, self.font, scroll_cutoff_idx, 24, textColor2, station2[iter_count:])
             self.canvas = matrix.SwapOnVSync(self.canvas)
             if iter_count == 0:
                 #extra long sleep at start, so text pauses a bit
