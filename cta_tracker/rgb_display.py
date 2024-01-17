@@ -32,10 +32,10 @@ class RGBDisplay():
         station2 = train2['staNm']
         matrix = self.matrix_constructor()
         self.canvas = matrix.CreateFrameCanvas()
-        difference1 = (datetime.strptime(train1['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train['prdt'],
+        difference1 = (datetime.strptime(train1['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train1['prdt'],
                                                                                                 '%Y-%m-%dT%H:%M:%S'))
         time_until1 = str(divmod(difference1.total_seconds(), 60)[0])
-        difference2 = (datetime.strptime(train2['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train['prdt'],
+        difference2 = (datetime.strptime(train2['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train2['prdt'],
                                                                                                 '%Y-%m-%dT%H:%M:%S'))
         time_until2 = str(divmod(difference2.total_seconds(), 60)[0])
         scroll_cutoff_idx = 13 #the led column at which left scroll stops for stations
