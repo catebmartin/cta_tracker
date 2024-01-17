@@ -28,8 +28,8 @@ class RGBDisplay():
         :param train2: Json with details of train2
         :return: None. Display will be on LED Matrix
         '''
-        station1 = train1['staNm']
-        station2 = train2['staNm']
+        station1 = train1['destNm']
+        station2 = train2['destNm']
         matrix = self.matrix_constructor()
         self.canvas = matrix.CreateFrameCanvas()
         difference1 = (datetime.strptime(train1['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train1['prdt'],
