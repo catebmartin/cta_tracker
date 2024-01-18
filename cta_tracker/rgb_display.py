@@ -25,9 +25,9 @@ class RGBDisplay():
     @staticmethod
     def get_color(dest_in):
         if dest_in == "O'Hare":
-            return graphics.Color(255, 255, 255)
-        if dest_in == "Forest Park":
-            return graphics.Color(0,157,255)
+            return graphics.Color(255, 255, 255) #white
+        if dest_in in ["Forest Park", "UIC-Halsted"]:
+            return graphics.Color(0,157,255) #ctablue
         return graphics.Color(255,255,255)
 
     def scroll_two_trains(self, train1, train2):
