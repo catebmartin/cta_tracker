@@ -7,7 +7,7 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 class RGBDisplayCountdown(Countdown):
     # TODO: consider RGBDisplay master class. Inherit constructor, font loader, color loader
     def __init__(self, date_of_event, event_display, image_location):
-        Countdown.__init__(self, date_of_event, event_display, image_location)
+        Countdown.__init__(self, date_of_event, event_display, image_location, image_thumbnail)
         self.font = RGBDisplayCountdown.font_loader(self)
         # self.color = make a color loader, dependent on user input
 
@@ -31,7 +31,8 @@ class RGBDisplayCountdown(Countdown):
         self.canvas = matrix.CreateFrameCanvas()
         # load and display image. static location
         # display text, scroll
-        image = Image.open(self.image_location)
-        image.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
-        matrix.SetImage(image.convert('RGB'))
+        #image = Image.open(opeself.image_location)
+        #image.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
+        #matrix.SetImage(image.convert('RGB'))
+        matrix.SetImage(self.image_thumbnail)
         time.sleep(15)
