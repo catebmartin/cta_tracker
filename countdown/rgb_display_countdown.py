@@ -23,7 +23,7 @@ class RGBDisplayCountdown(Countdown):
 
     def font_loader(self):
         font = graphics.Font()
-        font.LoadFont("/home/cat_pi0/rpi-rgb-led-matrix/fonts/5x7.bdf")  # TODO: relative path
+        font.LoadFont("/home/cat_pi0/rpi-rgb-led-matrix/fonts/4x6.bdf")  # TODO: relative path
         return font
 
     def display_countdown(self):
@@ -31,7 +31,7 @@ class RGBDisplayCountdown(Countdown):
         self.canvas = matrix.CreateFrameCanvas()
         self.canvas.SetImage(self.image_thumbnail)
         #matrix.SetImage(self.image_thumbnail)
-        graphics.DrawText(self.canvas, self.font, 16, 8, graphics.Color(255, 255, 255), str(self.date_of_event)+' days until')
+        graphics.DrawText(self.canvas, self.font, 16, 8, graphics.Color(255, 255, 255), str(self.days_until)+' days until')
         graphics.DrawText(self.canvas, self.font, 16, 24, graphics.Color(255, 255, 255), self.event_display)
         self.canvas = matrix.SwapOnVSync(self.canvas)
         time.sleep(15)
