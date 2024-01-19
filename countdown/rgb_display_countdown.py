@@ -35,4 +35,4 @@ class RGBDisplayCountdown(Countdown):
         graphics.DrawText(self.canvas, self.font, 28, 16, graphics.Color(255, 255, 255), 'until')
         graphics.DrawText(self.canvas, self.font, 18, 26, graphics.Color(255, 255, 255), self.event_display)
         self.canvas = matrix.SwapOnVSync(self.canvas)
-        time.sleep(15)
+        time.sleep(3)
