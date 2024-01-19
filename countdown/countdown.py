@@ -27,5 +27,5 @@ class Countdown():
     def load_convert_image(self):
         from PIL import Image
         image = Image.open(self.image_location)
-        image.thumbnail(64, 32), Image.ANTIALIAS)
+        image.thumbnail((64, 32), Image.ANTIALIAS)
         return image.convert('RGB')
