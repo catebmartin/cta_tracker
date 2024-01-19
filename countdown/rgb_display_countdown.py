@@ -29,10 +29,7 @@ class RGBDisplayCountdown(Countdown):
     def display_countdown(self):
         matrix = self.matrix_constructor()
         self.canvas = matrix.CreateFrameCanvas()
-        # load and display image. static location
-        # display text, scroll
-        #image = Image.open(opeself.image_location)
-        #image.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
-        #matrix.SetImage(image.convert('RGB'))
         matrix.SetImage(self.image_thumbnail)
+        graphics.DrawText(self.canvas, self.font, 1, 8, graphics.Color(255, 255, 255), str(self.date_of_event)+' days until')
+        graphics.DrawText(self.canvas, self.font, 1, 24, graphics.Color(255, 255, 255), self.event_display)
         time.sleep(15)
