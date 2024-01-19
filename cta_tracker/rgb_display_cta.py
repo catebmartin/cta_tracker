@@ -1,10 +1,11 @@
 from datetime import datetime
 import time
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
-class RGBDisplay():
-    def __init__(self, json_response_in):
-        self.json_response = json_response_in
-        self.font = RGBDisplay.font_loader(self)
+from cta_tracker.cta_tracker import CTAtracker
+class RGBDisplayCTA(CTAtracker):
+    def __init__(self, url_args):
+        CTAtracker.__init__(self, url_args)
+        self.font = RGBDisplayCTA.font_loader(self)
         """
         Class that will take JSON return by CTA API and display it in RGB. 
         """
@@ -51,8 +52,8 @@ class RGBDisplay():
 
         scroll_cutoff_idx = 13 #the led column at which left scroll stops for stations
         iter_count, scroll_count = 0, 0
-        textColor1 = RGBDisplay.get_color(station1)
-        textColor2 = RGBDisplay.get_color(station2)
+        textColor1 = RGBDisplayCTA.get_color(station1)
+        textColor2 = RGBDisplayCTA.get_color(station2)
         while scroll_count <= 3:
             self.canvas.Clear()
             graphics.DrawText(self.canvas, self.font, 1, 8, graphics.Color(255, 255, 255), time_until1)

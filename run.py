@@ -1,6 +1,6 @@
 import datetime
 import sys
-from cta_tracker.cta_tracker import CTAtracker
+from led_display import LEDdisplay
 
 time_args={
     'peak_start':datetime.time(7,0,0),
@@ -15,10 +15,11 @@ url_args={
     'max_results':8
 }
 
-cta = CTAtracker(time_args, url_args)
+
+led_display = LEDdisplay(time_args, url_args)
 
 try:
     print('Keyboard interrupt supported.')
-    cta.api_loop()
+    led_display.loop_display()
 except KeyboardInterrupt:
     sys.exit(0)
