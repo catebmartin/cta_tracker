@@ -93,7 +93,7 @@ class CTAtracker():
                 time.sleep(10 * 60)
             else:
                 from countdown.rgb_display_countdown import RGBDisplayCountdown
-                milo_countdown = RGBDisplayCountdown('2024-06-24', 'Milo\'s Birthday', '/images/milo_sticker.jpg')
+                milo_countdown = RGBDisplayCountdown('2024-06-24', 'Milo\'s Birthday', 'images/milo_sticker.jpg')
                 milo_countdown.display_countdown()
 
                 json = self.curl_api(self.url)
