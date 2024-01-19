@@ -3,7 +3,7 @@ import time
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 from cta_tracker.cta_tracker import CTAtracker
 class RGBDisplayCTA(CTAtracker):
-    def __init__(self):
+    def __init__(self, url_args):
         CTAtracker.__init__(self, url_args)
         self.font = RGBDisplayCTA.font_loader(self)
         """
