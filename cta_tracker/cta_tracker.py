@@ -1,9 +1,9 @@
-import os
+# import os
 import requests
-from datetime import datetime
-import time
+# from datetime import datetime
+# import time
 
-from cta_tracker.rgb_display_cta import RGBDisplay
+# from cta_tracker.rgb_display_cta import RGBDisplayCTA
 from cta_tracker.secrets import api_key
 
 class CTAtracker():
@@ -55,29 +55,29 @@ class CTAtracker():
     #             print('IS DELAYED')
     #         print('\n\n')
 
-    def api_loop(self):
-        # TO DO: what if start /end times don't exist
-        while True:
-            isPeak = self.time_in_range(self.peak_start, self.peak_end)
-            isSleep = self.time_in_range(self.sleep_start, self.sleep_end)
-            if isPeak:
-                # ping every 5 seconds
-                json = self.curl_api(self.url)
-                # self.json_cleaner(json)
-                rgb_display = RGBDisplay(json)
-                rgb_display.display_json_response()
-                # time.sleep(25)
-            elif isSleep:
-                # do nothing. Sleep 10 minutes
-                time.sleep(10 * 60)
-            else:
-                from countdown.rgb_display_countdown import RGBDisplayCountdown
-                milo_countdown = RGBDisplayCountdown('2024-06-24', 'Milo\'s Birthday', 'images/milo_sticker.jpg')
-                milo_countdown.display_countdown()
-
-                json = self.curl_api(self.url)
-                rgb_display = RGBDisplay(json)
-                rgb_display.display_json_response()
+    # def api_loop(self):
+    #     # TO DO: what if start /end times don't exist
+    #     while True:
+    #         isPeak = self.time_in_range(self.peak_start, self.peak_end)
+    #         isSleep = self.time_in_range(self.sleep_start, self.sleep_end)
+    #         if isPeak:
+    #             # ping every 5 seconds
+    #             json = self.curl_api(self.url)
+    #             # self.json_cleaner(json)
+    #             rgb_display = RGBDisplayCTA(json)
+    #             rgb_display.display_json_response()
+    #             # time.sleep(25)
+    #         elif isSleep:
+    #             # do nothing. Sleep 10 minutes
+    #             time.sleep(10 * 60)
+    #         else:
+    #             from countdown.rgb_display_countdown import RGBDisplayCountdown
+    #             milo_countdown = RGBDisplayCountdown('2024-06-24', 'Milo\'s Birthday', 'images/milo_sticker.jpg')
+    #             milo_countdown.display_countdown()
+    #
+    #             json = self.curl_api(self.url)
+    #             rgb_display = RGBDisplay(json)
+    #             rgb_display.display_json_response()
 
             # os.system('cls')
             # print('REFRESH!')
