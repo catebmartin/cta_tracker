@@ -92,11 +92,14 @@ class CTAtracker():
                 # do nothing. Sleep 10 minutes
                 time.sleep(10 * 60)
             else:
-                # ping every minute
+                from countdown.rgb_display_countdown import RGBDisplayCountdown
+                milo_countdown = RGBDisplayCountdown('2024-06-24', 'Milo\'s Birthday', '/images/milo_sticker.jpg')
+                milo_countdown.display_countdown()
+
                 json = self.curl_api(self.url)
                 rgb_display = RGBDisplay(json)
                 rgb_display.display_json_response()
-                # time.sleep(60)
+
             # os.system('cls')
             # print('REFRESH!')
             # os.system('cls')
