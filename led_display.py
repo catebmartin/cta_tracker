@@ -32,7 +32,7 @@ class LEDdisplay():
     def loop_display(self):
         # TO DO: what if start /end times don't exist
         #image handling is slow, so do it onoce up front
-        milo_countdown = RGBDisplayCountdown('2024-06-24', 'Milo\'s Birthday', 'images/milo_sticker.jpg')
+        milo_countdown = RGBDisplayCountdown('2024-06-24', 'Milo\'s BDay', 'images/milo_sticker.jpg')
         while True:
             isPeak = self.time_in_range(self.peak_start, self.peak_end)
             isSleep = self.time_in_range(self.sleep_start, self.sleep_end)
