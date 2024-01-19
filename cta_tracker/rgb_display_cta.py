@@ -1,9 +1,10 @@
 from datetime import datetime
 import time
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
-class RGBDisplayCTA():
-    def __init__(self, json_response_in):
-        self.json_response = json_response_in
+from cta_tracker.cta_tracker import CTAtracker
+class RGBDisplayCTA(CTAtracker):
+    def __init__(self):
+        CTAtracker.__init__(self, url_args)
         self.font = RGBDisplayCTA.font_loader(self)
         """
         Class that will take JSON return by CTA API and display it in RGB. 
