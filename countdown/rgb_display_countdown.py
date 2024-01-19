@@ -6,7 +6,7 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 
 class RGBDisplayCountdown(Countdown):
     # TODO: consider RGBDisplay master class. Inherit constructor, font loader, color loader
-    def __init__(self, date_of_event, event_display, image_location):
+    def __init__(self, date_of_event, event_display, image_location, image_thumbnail):
         Countdown.__init__(self, date_of_event, event_display, image_location, image_thumbnail)
         self.font = RGBDisplayCountdown.font_loader(self)
         # self.color = make a color loader, dependent on user input
