@@ -31,6 +31,6 @@ class RGBDisplayCountdown(Countdown):
         self.canvas = matrix.CreateFrameCanvas()
         self.canvas.SetImage(self.image_thumbnail)
         #matrix.SetImage(self.image_thumbnail)
-        #graphics.DrawText(self.canvas, self.font, 1, 8, graphics.Color(255, 255, 255), str(self.date_of_event)+' days until')
-        #graphics.DrawText(self.canvas, self.font, 1, 24, graphics.Color(255, 255, 255), self.event_display)
+        graphics.DrawText(self.canvas, self.font, 16, 8, graphics.Color(255, 255, 255), str(self.date_of_event)+' days until')
+        graphics.DrawText(self.canvas, self.font, 16, 24, graphics.Color(255, 255, 255), self.event_display)
         time.sleep(15)
