@@ -12,7 +12,7 @@ time_args={
 url_args={
     'stpid':[],
     'mapid':['40570'],
-    'max_results':8
+    'max_results':3
 }
 
 
