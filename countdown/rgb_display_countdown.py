@@ -6,6 +6,7 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 
 class RGBDisplayCountdown(Countdown):
     # TODO: consider RGBDisplay master class. Inherit constructor, font loader, color loader
+    # TODO: center and wrap text automatically
     def __init__(self, date_of_event, event_display, image_location):
         Countdown.__init__(self, date_of_event, event_display, image_location)
         self.font = RGBDisplayCountdown.font_loader(self)
