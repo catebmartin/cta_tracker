@@ -30,8 +30,40 @@ class RGBDisplayCTA(CTAtracker):
         if dest_in in ["Forest Park", "UIC-Halsted"]:
             return graphics.Color(0,157,255) #ctablue
         return graphics.Color(255,255,255)
+    def scroll_one_train(self, train1):
+        '''
+        Take in details of two trains.  Led will scroll details 3 times before ending.
+        :param train1: Json with details of train1
+        :param train2: Json with details of train2
+        :return: None. Display will be on LED Matrix
+        '''
+        matrix = self.matrix_constructor()
+        self.canvas = matrix.CreateFrameCanvas()
 
+        station1 = train1['destNm']
+        difference1 = (datetime.strptime(train1['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train1['prdt'],
+                                                                                                '%Y-%m-%dT%H:%M:%S'))
+        time_until1 = str(int(divmod(difference1.total_seconds(), 60)[0]))
+        scroll_cutoff_idx = 13 #the led column at which left scroll stops for stations
+        iter_count, scroll_count = 0, 0
+        textColor1 = RGBDisplayCTA.get_color(station1)
+        while scroll_count <= 3:
+            self.canvas.Clear()
+            graphics.DrawText(self.canvas, self.font, 1, 8, graphics.Color(255, 255, 255), time_until1)
+            # start placement at left near cutoff.  Loop through and remove letters off the front
+            graphics.DrawText(self.canvas, self.font, scroll_cutoff_idx, 8, textColor1, station1[iter_count:])
+            self.canvas = matrix.SwapOnVSync(self.canvas)
+            if iter_count == 0:
+                #extra long sleep at start, so text pauses a bit
+                time.sleep(2)
+            time.sleep(0.25)
+            iter_count += 1
+            if iter_count > len(station1):
+                #restart scroll
+                iter_count = 0
+                scroll_count+=1
     def scroll_two_trains(self, train1, train2):
+        # TODO: create functions for a lot of this, now that it's reused in scroll_one_train
         '''
         Take in details of two trains.  Led will scroll details 3 times before ending.
         :param train1: Json with details of train1
@@ -63,18 +95,24 @@ class RGBDisplayCTA(CTAtracker):
             graphics.DrawText(self.canvas, self.font, scroll_cutoff_idx, 24, textColor2, station2[iter_count:])
             self.canvas = matrix.SwapOnVSync(self.canvas)
             if iter_count == 0:
-                #extra long sleep at start, so text pauses a bit
+                # extra long sleep at start, so text pauses a bit
                 time.sleep(2)
             time.sleep(0.25)
             iter_count += 1
             if iter_count > max(len(station1), len(station2)):
-                #restart scroll
+                # restart scroll
                 iter_count = 0
                 scroll_count+=1
     def display_json_response(self):
-        #look at self.json response. how many trains in it?
+        # TODO: Add unit tests. There have been issues in the past.
+        # look at self.json response. how many trains in it?
         train_pair_count = round(len(self.json_response)/2)
-        for i in range(0,train_pair_count+2,2):
-            train1 = self.json_response[i]
-            train2 = self.json_response[i+1]
-            self.scroll_two_trains(train1, train2)
+        for i in range(0,train_pair_count*2,2):
+            if i+1 < len(self.json_response):
+                # train2 exists
+                train1 = self.json_response[i]
+                train2 = self.json_response[i+1]
+                self.scroll_two_trains(train1, train2)
+            else:
+                train1 = self.json_response[i]
+                self.scroll_one_train(train1)
