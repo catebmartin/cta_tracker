@@ -94,28 +94,24 @@ class RGBDisplayCTA(CTAtracker):
             graphics.DrawText(self.canvas, self.font, scroll_cutoff_idx, 24, textColor2, station2[iter_count:])
             self.canvas = matrix.SwapOnVSync(self.canvas)
             if iter_count == 0:
-                #extra long sleep at start, so text pauses a bit
+                # extra long sleep at start, so text pauses a bit
                 time.sleep(2)
             time.sleep(0.25)
             iter_count += 1
             if iter_count > max(len(station1), len(station2)):
-                #restart scroll
+                # restart scroll
                 iter_count = 0
                 scroll_count+=1
     def display_json_response(self):
-        #look at self.json response. how many trains in it?
+        # TODO: Add unit tests. There have been issues in the past.
+        # look at self.json response. how many trains in it?
         train_pair_count = round(len(self.json_response)/2)
-        print('Train pair count, ',train_pair_count)
-        print('Json resonse len, ',len(self.json_response))
         for i in range(0,train_pair_count*2,2):
-            print(i)
             if i+1 < len(self.json_response):
-                print('Scroll train trains')
-                #there is an even number of trains so train2 exists
+                # train2 exists
                 train1 = self.json_response[i]
                 train2 = self.json_response[i+1]
                 self.scroll_two_trains(train1, train2)
             else:
-                print("Scroll one train")
                 train1 = self.json_response[i]
                 self.scroll_one_train(train1)
