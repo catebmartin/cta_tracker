@@ -108,7 +108,7 @@ class RGBDisplayCTA(CTAtracker):
         print('Train pair count, ',train_pair_count)
         print('Json resonse len, ',len(self.json_response))
         for i in range(0,train_pair_count*2,2):
-            if len(self.json_response)%2==0:
+            if i+1 <= len(self.json_response):
                 print('Scroll train trains')
                 #there is an even number of trains so train2 exists
                 train1 = self.json_response[i]
