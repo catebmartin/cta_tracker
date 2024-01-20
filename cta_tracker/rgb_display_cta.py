@@ -63,6 +63,7 @@ class RGBDisplayCTA(CTAtracker):
                 iter_count = 0
                 scroll_count+=1
     def scroll_two_trains(self, train1, train2):
+        # TODO: create functions for a lot of this, now that it's reused in scroll_one_train
         '''
         Take in details of two trains.  Led will scroll details 3 times before ending.
         :param train1: Json with details of train1
