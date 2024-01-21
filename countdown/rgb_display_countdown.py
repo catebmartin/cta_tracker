@@ -2,14 +2,13 @@ from countdown.countdown import Countdown
 import time
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 
-
 class RGBDisplayCountdown(Countdown):
     # TODO: consider RGBDisplay master class. Inherit constructor, font loader, color loader
     # TODO: center and wrap text automatically
-    def __init__(self, date_of_event, event_display, image_location):
+    def __init__(self, date_of_event, event_display, image_location, color=(255,255,255)):
         Countdown.__init__(self, date_of_event, event_display, image_location)
         self.font = RGBDisplayCountdown.font_loader(self)
-        # self.color = make a color loader, dependent on user input
+        self.color = graphics.Color(color)
 
     def matrix_constructor(self):
         options = RGBMatrixOptions()
@@ -32,9 +31,8 @@ class RGBDisplayCountdown(Countdown):
         self.canvas = matrix.CreateFrameCanvas()
         self.canvas.SetImage(self.image_thumbnail)
         #TODO: figure out how to center this
-        color = graphics.Color(204,102,0)
-        graphics.DrawText(self.canvas, self.font, 22, 6, color, str(self.days_until)+' days')
-        graphics.DrawText(self.canvas, self.font, 28, 16, color, 'until')
-        graphics.DrawText(self.canvas, self.font, 18, 26, color, self.event_display)
+        graphics.DrawText(self.canvas, self.font, 22, 6, self.color, str(self.days_until)+' days')
+        graphics.DrawText(self.canvas, self.font, 28, 16, self.color, 'until')
+        graphics.DrawText(self.canvas, self.font, 18, 26, self.color, self.event_display)
         self.canvas = matrix.SwapOnVSync(self.canvas)
         time.sleep(3)
