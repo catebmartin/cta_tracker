@@ -1,5 +1,4 @@
 from countdown.countdown import Countdown
-from PIL import Image
 import time
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 
