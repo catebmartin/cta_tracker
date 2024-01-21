@@ -8,7 +8,7 @@ class RGBDisplayCountdown(Countdown):
     def __init__(self, date_of_event, event_display, image_location, color=(255,255,255)):
         Countdown.__init__(self, date_of_event, event_display, image_location)
         self.font = RGBDisplayCountdown.font_loader(self)
-        self.color = graphics.Color(color)
+        self.color = graphics.Color(color[0], color[1], color[2])
 
     def matrix_constructor(self):
         options = RGBMatrixOptions()
