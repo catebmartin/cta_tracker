@@ -3,7 +3,6 @@ import time
 
 from countdown.rgb_display_countdown import RGBDisplayCountdown
 from cta_tracker.rgb_display_cta import RGBDisplayCTA
-from cta_tracker.cta_tracker import CTAtracker
 
 class LEDdisplay():
     def __init__(self, time_args, url_args):
@@ -33,6 +32,7 @@ class LEDdisplay():
         # TO DO: what if start /end times don't exist
         #image handling is slow, so do it onoce up front
         milo_countdown = RGBDisplayCountdown('2024-06-24', 'Milo\'s BDay', 'images/milo_sticker.jpg')
+        f1_countdown = RGBDisplayCountdown('2024-02-29', 'Bahrain', '/images/ferrari.jpg')
         while True:
             isPeak = self.time_in_range(self.peak_start, self.peak_end)
             isSleep = self.time_in_range(self.sleep_start, self.sleep_end)
@@ -44,6 +44,7 @@ class LEDdisplay():
                 time.sleep(10 * 60)
             else:
                 milo_countdown.display_countdown()
+                f1_countdown.display_countdown()
 
                 rgb_display = RGBDisplayCTA(self.url_args)
                 rgb_display.display_json_response()
