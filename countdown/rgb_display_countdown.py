@@ -10,6 +10,7 @@ class RGBDisplayCountdown(Countdown):
     def __init__(self, date_of_event, event_display, image_location):
         Countdown.__init__(self, date_of_event, event_display, image_location)
         self.font = RGBDisplayCountdown.font_loader(self)
+        self.days_until = Countdown.set_days_until(self)
         # self.color = make a color loader, dependent on user input
 
     def matrix_constructor(self):
