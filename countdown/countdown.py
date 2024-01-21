@@ -12,7 +12,6 @@ class Countdown():
         self.date_of_event = date_of_event
         self.event_display = event_display
         self.image_location = image_location
-        self.days_until = Countdown.set_days_until(self)
         self.image_thumbnail = Countdown.load_convert_image(self)
 
     def set_days_until(self):
