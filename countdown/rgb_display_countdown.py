@@ -22,7 +22,7 @@ class RGBDisplayCountdown(Countdown):
 
     def font_loader(self):
         font = graphics.Font()
-        font.LoadFont("fonts/4x6.bdf")  # TODO: relative path
+        font.LoadFont("fonts/4x6.bdf")
         return font
 
     def display_countdown(self):
