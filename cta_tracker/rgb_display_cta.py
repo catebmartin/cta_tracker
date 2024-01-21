@@ -47,7 +47,7 @@ class RGBDisplayCTA(CTAtracker):
         scroll_cutoff_idx = 13 #the led column at which left scroll stops for stations
         iter_count, scroll_count = 0, 0
         textColor1 = RGBDisplayCTA.get_color(station1)
-        while scroll_count <= 3:
+        while scroll_count < 2:
             self.canvas.Clear()
             graphics.DrawText(self.canvas, self.font, 1, 8, graphics.Color(255, 255, 255), time_until1)
             # start placement at left near cutoff.  Loop through and remove letters off the front
