@@ -86,7 +86,7 @@ class RGBDisplayCTA(CTAtracker):
         iter_count, scroll_count = 0, 0
         textColor1 = RGBDisplayCTA.get_color(station1)
         textColor2 = RGBDisplayCTA.get_color(station2)
-        while scroll_count <= 3:
+        while scroll_count < 2:
             self.canvas.Clear()
             graphics.DrawText(self.canvas, self.font, 1, 8, graphics.Color(255, 255, 255), time_until1)
             graphics.DrawText(self.canvas, self.font, 1, 24, graphics.Color(255, 255, 255), time_until2)
