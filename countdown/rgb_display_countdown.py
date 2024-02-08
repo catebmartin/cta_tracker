@@ -8,11 +8,11 @@ class RGBDisplayCountdown(Countdown):
     # TODO: center and wrap text automatically
     def __init__(self, date_of_event, event_display, image_location, color=(255, 255, 255)):
         Countdown.__init__(self, date_of_event, event_display, image_location)
-        self.font = RGBDisplayCountdown.font_loader()
+        self.font = self.font_getter()
         self.color = graphics.Color(color[0], color[1], color[2])
 
-    @property
-    def matrix_constructor(self):
+    @staticmethod
+    def matrix_getter():
         """
         Hard code settings for matrix.
             rows: number of rows in your LED display
@@ -33,14 +33,14 @@ class RGBDisplayCountdown(Countdown):
         return RGBMatrix(options=options)
 
     @staticmethod
-    def font_loader():
+    def font_getter():
         font = graphics.Font()
         font.LoadFont("fonts/4x6.bdf")
         return font
 
     def display_countdown(self):
         days_until = Countdown.set_days_until(self)
-        matrix = self.matrix_constructor
+        matrix = self.matrix_getter()
         canvas = matrix.CreateFrameCanvas()
         canvas.SetImage(self.image_thumbnail)
         # TODO: figure out how to center this
