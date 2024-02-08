@@ -39,4 +39,5 @@ class CTAtracker():
         else:
             #no trains. Sleep and return empty train list
             time.sleep(5)
+            print('No train')
             return {}
