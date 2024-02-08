@@ -1,6 +1,6 @@
 import datetime
 import sys
-from led_display import LEDdisplay
+from led_display import LEDDisplay
 
 time_args={
     'peak_start':datetime.time(7,0,0),
@@ -16,7 +16,7 @@ url_args={
 }
 
 
-led_display = LEDdisplay(time_args, url_args)
+led_display = LEDDisplay(time_args, url_args)
 
 try:
     print('Keyboard interrupt supported.')
