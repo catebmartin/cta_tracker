@@ -4,6 +4,11 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 
 
 class RGBDisplayCountdown(Countdown):
+    """
+    Extension of Countdown class used to display the information.
+    Instantiate once with parameters of Countdown (image load takes a long time).
+    Place .display_countdown() in loop as desired.
+    """
     # TODO: consider RGBDisplay master class. Inherit constructor, font loader, color loader
     # TODO: center and wrap text automatically
     def __init__(self, date_of_event, event_display, image_location, color=(255, 255, 255)):
