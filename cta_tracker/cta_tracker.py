@@ -1,9 +1,6 @@
-# import os
 import requests
-# from datetime import datetime
-# import time
+import time
 
-# from cta_tracker.rgb_display_cta import RGBDisplayCTA
 from cta_tracker.secrets import api_key
 
 class CTAtracker():
@@ -37,4 +34,10 @@ class CTAtracker():
         Requests url and returns specific portion of json.
         """
         r = requests.get(self.url)
-        return r.json()['ctatt']['eta']
+        if 'eta' in r.json()['ctatt']:
+            return r.json()['ctatt']['eta']
+        else:
+            #no trains. Sleep and return empty train list
+            time.sleep(5)
+            print('No train')
+            return {}
