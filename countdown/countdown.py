@@ -1,9 +1,12 @@
 from datetime import date
 
-class Countdown():
-    '''
+
+class Countdown:
+    """
     date_of_event: String of format 'yyyy-mm-dd'
-    '''
+    event_display: String to be displayed as '{x} days until {event_display}'
+    image_location: String of path to display image location
+    """
 
     def __init__(self,
                  date_of_event,
