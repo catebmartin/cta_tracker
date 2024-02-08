@@ -24,7 +24,7 @@ class Countdown:
         d0 = date(date_elements[0], date_elements[1], date_elements[2])
         d1 = date.today()
         days_until = (d0 - d1).days
-        print(f'{days_until} days until {self.event_display}!')
+        # print(f'{days_until} days until {self.event_display}!')
         return days_until
 
     def image_getter(self):
