@@ -6,6 +6,13 @@ from cta_tracker.rgb_display_cta import RGBDisplayCTA
 
 
 class LEDDisplay:
+    """
+    Class that determines what is to be displayed and when.
+    :param time_args: Dictionary of datetime fields that specify peak time and sleep time
+    :param url_args: Dictionary of various fields that specify CTA tracker configurations
+    There are a variety of checks to determine that specifications are acceptable.
+    Once passed, loop_display() will keep display on.
+    """
     def __init__(self, time_args, url_args):
         self.time_setter(time_args)
         self.url_setter(url_args)
@@ -13,10 +20,10 @@ class LEDDisplay:
     def time_setter(self, time_args):
         """
         Check that input time args are acceptable.  If they pass, set values.
-        :param time_args: Dictionary of datetime fields
-        :return: None. set time related init values
         """
+        # confirm that keys are correct
         assert set(time_args.keys()) == {'peak_end', 'peak_start', 'sleep_end', 'sleep_start'}, 'Incorrect time keys'
+        # confirm that time windows are mutually exclusive
         assert ~self.time_in_range(time_args['peak_start'], time_args['peak_end'],
                                    time_args['sleep_start']), 'Sleep start overlap with peak'
         assert ~self.time_in_range(time_args['peak_start'], time_args['peak_end'],
@@ -32,9 +39,7 @@ class LEDDisplay:
 
     def url_setter(self, url_args):
         """
-        Check that input url_args are acceptable.
-        :param url_args: Dictionary of various fields
-        :return: None. init url_args
+        Check that input url_args are acceptable.  If they pass, set values.
         """
         # confirm that there are no extra key values
         assert set(url_args.keys()).issubset({'stpid', 'mapid', 'max_results'}), 'Incorrect url args'
@@ -52,12 +57,11 @@ class LEDDisplay:
     @staticmethod
     def time_in_range(start, end, test_time=datetime.now().time()):
         """
-        Return true if current time is in the range [start, end].
-        input:
-            start:datetime.time()
-            end:datetime.time()
-        output:
-            boolean
+        Return true if test time is in the range [start, end].
+        :param start:datetime.time()
+        :param end:datetime.time()
+        :param (optional) test_time:datetime.time() default set to now()
+        :return boolean
         """
         # TODO add unit tests
         if start <= end:
