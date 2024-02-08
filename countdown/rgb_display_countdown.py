@@ -39,7 +39,7 @@ class RGBDisplayCountdown(Countdown):
         return font
 
     def display_countdown(self):
-        days_until = Countdown.set_days_until(self)
+        days_until = Countdown.days_until_getter(self)
         matrix = self.matrix_getter()
         canvas = matrix.CreateFrameCanvas()
         canvas.SetImage(self.image_thumbnail)
