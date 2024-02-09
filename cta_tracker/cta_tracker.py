@@ -49,3 +49,4 @@ class CTATracker:
         except Exception as e:
             # the request was not successful.  Store error and sleep.
             print(f'Exception {e} at {datetime.datetime.now(pytz.timezone("America/Chicago"))}')
+            return {}

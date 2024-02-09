@@ -37,7 +37,7 @@ class RGBDisplayCTA(CTATracker):
     @staticmethod
     def font_getter():
         font = graphics.Font()
-        font.LoadFont("fonts/4x6.bdf")
+        font.LoadFont("fonts/5x7.bdf")
         return font
 
     @staticmethod
