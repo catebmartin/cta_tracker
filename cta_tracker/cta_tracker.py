@@ -6,11 +6,11 @@ import pytz
 from cta_tracker.secrets import api_key
 
 
-class CTAtracker:
+class CTATracker:
     def __init__(self, url_args):
         self.url_args = url_args
-        self.url = CTAtracker.url_constructor(self)
-        self.json_response = CTAtracker.curl_api(self)
+        self.url = CTATracker.url_constructor(self)
+        self.json_response = CTATracker.curl_api(self)
         """
         Class that will ping CTA API and return relevant information in JSON format. 
         """
@@ -35,11 +35,17 @@ class CTAtracker:
     def curl_api(self):
         """
         Requests url and returns specific portion of json.
+        At times connection is weak and request is denied.
         """
-        r = requests.get(self.url)
-        if 'eta' not in r.json()['ctatt']:
-            # no trains. Sleep and return empty train list
-            time.sleep(5)
-            print(f'No train at {datetime.datetime.now(pytz.timezone("America/Chicago"))}')
-            return {}
-        return r.json()['ctatt']['eta']
+        try:
+            # we receive a return from the request
+            r = requests.get(self.url)
+            if 'eta' not in r.json()['ctatt']:
+                # we receive a return but no trains. Sleep and return empty train list
+                time.sleep(5)
+                print(f'No train at {datetime.datetime.now(pytz.timezone("America/Chicago"))}')
+                return {}
+            return r.json()['ctatt']['eta']
+        except Exception as e:
+            # the request was not successful.  Store error and sleep.
+            print(f'Exception {e} at {datetime.datetime.now(pytz.timezone("America/Chicago"))}')
