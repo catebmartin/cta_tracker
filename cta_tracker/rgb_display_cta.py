@@ -51,11 +51,38 @@ class RGBDisplayCTA(CTATracker):
     @staticmethod
     def train_cleaner(train):
         difference = (datetime.strptime(train['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train['prdt'], '%Y-%m-%dT%H:%M:%S'))
+        arrival_time = datetime.strptime(train['arrT'], '%Y-%m-%dT%H:%M:%S').strftime('%I:%M %p')
         return {
             'station': train['destNm'],
             'time_until': str(int(divmod(difference.total_seconds(), 60)[0])),
-            'text_color': RGBDisplayCTA.get_color(train['destNm'])
+            'text_color': RGBDisplayCTA.get_color(train['destNm']),
+            'arrival_time': arrival_time,
+            'scroll_text': f"{train['destNm']}  {arrival_time}"
         }
+
+    @staticmethod
+    def scroll_comparison(train1, train2):
+        """
+        If the text is not the same length, then spread it out to be.
+        :param train1: Dictionary from train_cleaner
+        :param train2: Dictionary from train_cleaner
+        :return: Two dictionaries, train 1 and train2. Corrected 'scroll_text' if necessary.
+        """
+        assert len(train1['arrival_time']) == len(train2['arrival_time'])
+        if len(train1['scroll_text']) != len(train2['scroll_text']):
+            print(train1['scroll_text'])
+            print(train2['scroll_text'])
+            desired_len = max(len(train1['scroll_text']), len(train2['scroll_text']))
+            mid_pad1 = desired_len - len(train1['arrival_time'])
+            mid_pad2 = desired_len - len(train2['arrival_time'])
+            print(desired_len, mid_pad1, mid_pad2)
+            train1['scroll_text'] = train1['station'].ljust(mid_pad1, ' ') + train1['arrival_time']
+            train2['scroll_text'] = train2['station'].ljust(mid_pad2, ' ') + train2['arrival_time']
+            print(train1['scroll_text'])
+            print(train2['scroll_text'])
+            assert len(train1['scroll_text']) == len(train2['scroll_text'])
+        return train1, train2
+
 
     def scroll_one_train(self, train1):
         """
@@ -74,7 +101,7 @@ class RGBDisplayCTA(CTATracker):
             # set time on top left
             graphics.DrawText(canvas, self.font, 1, 8, graphics.Color(255, 255, 255), train1['time_until'])
             # start destination name placement at left near cutoff.  Loop through and remove letters off the front
-            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 8, train1['text_color'], train1['station'][iter_count:])
+            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 8, train1['text_color'], train1['scroll_text'][iter_count:])
             canvas = matrix.SwapOnVSync(canvas)
             if iter_count == 0:
                 # extra long sleep at start, so text pauses a bit
@@ -83,6 +110,7 @@ class RGBDisplayCTA(CTATracker):
             iter_count += 1
             if iter_count > len(train1['station']):
                 # restart scroll
+                time.sleep(1)
                 iter_count = 0
                 scroll_count += 1
 
@@ -99,6 +127,7 @@ class RGBDisplayCTA(CTATracker):
 
         train1 = self.train_cleaner(train1)
         train2 = self.train_cleaner(train2)
+        train1, train2 = self.scroll_comparison(train1, train2)
         iter_count, scroll_count = 0, 0
 
         while scroll_count < 2:
@@ -106,8 +135,8 @@ class RGBDisplayCTA(CTATracker):
             graphics.DrawText(canvas, self.font, 1, 8, graphics.Color(255, 255, 255), train1['time_until'])
             graphics.DrawText(canvas, self.font, 1, 24, graphics.Color(255, 255, 255), train2['time_until'])
             # start placement at left near cutoff.  Loop through and remove letters off the front
-            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 8, train1['text_color'], train1['station'][iter_count:])
-            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 24, train2['text_color'], train2['station'][iter_count:])
+            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 8, train1['text_color'], train1['scroll_text'][iter_count:])
+            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 24, train2['text_color'], train2['scroll_text'][iter_count:])
             matrix.SwapOnVSync(canvas)
             if iter_count == 0:
                 # extra long sleep at start, so text pauses a bit
@@ -116,6 +145,7 @@ class RGBDisplayCTA(CTATracker):
             iter_count += 1
             if iter_count > max(len(train1['station']), len(train2['station'])):
                 # restart scroll
+                time.sleep(1)
                 iter_count = 0
                 scroll_count += 1
 
