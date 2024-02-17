@@ -70,6 +70,8 @@ class RGBDisplayCTA(CTATracker):
         """
         assert len(train1['arrival_time']) == len(train2['arrival_time'])
         if len(train1['scroll_text']) != len(train2['scroll_text']):
+            print(train1['scroll_text'])
+            print(train2['scroll_text'])
             desired_len = max(len(train1['scroll_text']), len(train2['scroll_text']))
             mid_pad = desired_len - min(len(train1['station']), len(train2['station'])) - len(train1['arrival_time'])
             print(desired_len, mid_pad)
