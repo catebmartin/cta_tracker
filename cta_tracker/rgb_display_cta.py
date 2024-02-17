@@ -76,7 +76,7 @@ class RGBDisplayCTA(CTATracker):
             # set time on top left
             graphics.DrawText(canvas, self.font, 1, 8, graphics.Color(255, 255, 255), train1['time_until'])
             # start destination name placement at left near cutoff.  Loop through and remove letters off the front
-            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 8, train1['text_color'], train1['station'][iter_count:])
+            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 8, train1['text_color'], train1['scroll_text'][iter_count:])
             canvas = matrix.SwapOnVSync(canvas)
             if iter_count == 0:
                 # extra long sleep at start, so text pauses a bit
@@ -108,8 +108,8 @@ class RGBDisplayCTA(CTATracker):
             graphics.DrawText(canvas, self.font, 1, 8, graphics.Color(255, 255, 255), train1['time_until'])
             graphics.DrawText(canvas, self.font, 1, 24, graphics.Color(255, 255, 255), train2['time_until'])
             # start placement at left near cutoff.  Loop through and remove letters off the front
-            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 8, train1['text_color'], train1['station'][iter_count:])
-            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 24, train2['text_color'], train2['station'][iter_count:])
+            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 8, train1['text_color'], train1['scroll_text'][iter_count:])
+            graphics.DrawText(canvas, self.font, self.scroll_cutoff_idx, 24, train2['text_color'], train2['scroll_text'][iter_count:])
             matrix.SwapOnVSync(canvas)
             if iter_count == 0:
                 # extra long sleep at start, so text pauses a bit
