@@ -11,9 +11,10 @@ class RGBDisplayCountdown(Countdown):
     """
     # TODO: consider RGBDisplay master class. Inherit constructor, font loader, color loader
     # TODO: center and wrap text automatically
-    def __init__(self, date_of_event, event_display, image_location, color=(255, 255, 255)):
+    def __init__(self, date_of_event, event_display, image_location, offset_text = False, color=(255, 255, 255)):
         Countdown.__init__(self, date_of_event, event_display, image_location)
         self.font = self.font_getter()
+        self.offset_text = offset_text
         self.color = graphics.Color(color[0], color[1], color[2])
 
     @staticmethod
@@ -48,11 +49,16 @@ class RGBDisplayCountdown(Countdown):
         matrix = self.matrix_getter()
         canvas = matrix.CreateFrameCanvas()
         canvas.SetImage(self.image_thumbnail)
-        # TODO: figure out how to center this
-        image_end = self.image_thumbnail.width
-        text_start = image_end+2
-        graphics.DrawText(canvas, self.font, text_start, 6, self.color, str(days_until)+' days')
-        graphics.DrawText(canvas, self.font, text_start, 16, self.color, 'until')
-        graphics.DrawText(canvas, self.font, text_start, 26, self.color, self.event_display)
+        if self.offset_text:
+            image_end = self.image_thumbnail.width
+            text_start = image_end+2
+            graphics.DrawText(canvas, self.font, text_start, 6, self.color, str(days_until)+' days')
+            graphics.DrawText(canvas, self.font, text_start, 16, self.color, 'until')
+            graphics.DrawText(canvas, self.font, text_start, 26, self.color, self.event_display)
+        else:
+            graphics.DrawText(canvas, self.font, 18, 6, self.color, str(days_until)+' days')
+            graphics.DrawText(canvas, self.font, 24, 16, self.color, 'until')
+            graphics.DrawText(canvas, self.font,  (64-len(self.event_display))/2, 6, self.color, self.event_display)
+            #TODO: If event is too long, assert
         matrix.SwapOnVSync(canvas)
         time.sleep(3)
