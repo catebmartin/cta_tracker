@@ -55,7 +55,7 @@ class RGBDisplayCountdown(Countdown):
             text_start = image_end+2
         else:
             text_start = 0
-        available_screen = matrix.cols-text_start
+        available_screen = matrix.cols()-text_start
         print_lst = [str(days_until)+' days',
                      'until',
                      self.event_display]
