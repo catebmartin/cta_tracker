@@ -87,5 +87,5 @@ class LEDDisplay:
                 milo_countdown.display_countdown()
                 f1_countdown.display_countdown()
                 # display CTA tracker
-                rgb_display = RGBDisplayCTA(self.url_args)
-                rgb_display.display_json_response()
+                # rgb_display = RGBDisplayCTA(self.url_args)
+                # rgb_display.display_json_response()
