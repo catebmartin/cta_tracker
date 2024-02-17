@@ -51,10 +51,12 @@ class RGBDisplayCTA(CTATracker):
     @staticmethod
     def train_cleaner(train):
         difference = (datetime.strptime(train['arrT'], '%Y-%m-%dT%H:%M:%S') - datetime.strptime(train['prdt'], '%Y-%m-%dT%H:%M:%S'))
+        arrival_time = datetime.strptime(train['arrT'], '%Y-%m-%dT%H:%M:%S').strftime('%I:%M %p')
         return {
             'station': train['destNm'],
             'time_until': str(int(divmod(difference.total_seconds(), 60)[0])),
-            'text_color': RGBDisplayCTA.get_color(train['destNm'])
+            'text_color': RGBDisplayCTA.get_color(train['destNm']),
+            'scroll_text': f"{train['destNm']}  {arrival_time}"
         }
 
     def scroll_one_train(self, train1):
