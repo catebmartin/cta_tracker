@@ -58,7 +58,7 @@ class RGBDisplayCountdown(Countdown):
             graphics.DrawText(canvas, self.font, text_start, 26, self.color, self.event_display)
         else:
             graphics.DrawText(canvas, self.font, 18, 6, self.color, str(days_until)+' days')
-            graphics.DrawText(canvas, self.font, 24, 16, self.color, 'until')
+            graphics.DrawText(canvas, self.font, 20, 16, self.color, 'until')
             graphics.DrawText(canvas, self.font,  (64-(len(self.event_display)*4))/2, 26, self.color, self.event_display)
             #TODO: If event is too long, assert
         matrix.SwapOnVSync(canvas)
