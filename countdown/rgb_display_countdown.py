@@ -49,7 +49,6 @@ class RGBDisplayCountdown(Countdown):
         matrix = self.matrix_getter()
         canvas = matrix.CreateFrameCanvas()
         canvas.SetImage(self.image_thumbnail)
-        #TODO don't hardcode height. split cols by 3
         #TODO: If event is too long, assert
         text_start = 0
         if self.offset_text:
