@@ -118,6 +118,7 @@ class RGBDisplayCTA(CTATracker):
             iter_count += 1
             if iter_count > max(len(train1['station']), len(train2['station'])):
                 # restart scroll
+                time.sleep(1)
                 iter_count = 0
                 scroll_count += 1
 
