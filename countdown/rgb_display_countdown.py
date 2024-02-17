@@ -50,6 +50,7 @@ class RGBDisplayCountdown(Countdown):
         canvas = matrix.CreateFrameCanvas()
         canvas.SetImage(self.image_thumbnail)
         #TODO don't hardcode height. split cols by 3
+        #TODO: If event is too long, assert
         if self.offset_text:
             image_end = self.image_thumbnail.width
             text_start = image_end+2
@@ -59,10 +60,9 @@ class RGBDisplayCountdown(Countdown):
         print_lst = [str(days_until)+' days',
                      'until',
                      self.event_display]
-        start_lst = [(available_screen-(len(x)*4))/2 for x in print_lst]
+        start_lst = [text_start+((available_screen-(len(x)*4))/2) for x in print_lst]
         graphics.DrawText(canvas, self.font, start_lst[0], 6, self.color, print_lst[0])
         graphics.DrawText(canvas, self.font, start_lst[1], 16, self.color, print_lst[1])
         graphics.DrawText(canvas, self.font, start_lst[2], 26, self.color, print_lst[2])
-        #TODO: If event is too long, assert
         matrix.SwapOnVSync(canvas)
         time.sleep(3)

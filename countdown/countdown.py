@@ -31,5 +31,4 @@ class Countdown:
         """Load and convert image"""
         image = Image.open(self.image_location)
         image.thumbnail((64, 32), Image.ANTIALIAS)
-        print(image.width)
         return image.convert('RGB')
