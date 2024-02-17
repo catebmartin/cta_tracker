@@ -73,8 +73,8 @@ class RGBDisplayCTA(CTATracker):
             print(train1['scroll_text'])
             print(train2['scroll_text'])
             desired_len = max(len(train1['scroll_text']), len(train2['scroll_text']))
-            mid_pad1 = desired_len - len(train1['station']) - len(train1['arrival_time'])
-            mid_pad2 = desired_len - len(train2['station']) - len(train1['arrival_time'])
+            mid_pad1 = desired_len - len(train1['arrival_time'])
+            mid_pad2 = desired_len - len(train2['arrival_time'])
             print(desired_len, mid_pad1, mid_pad2)
             train1['scroll_text'] = train1['station'].ljust(mid_pad1, ' ') + train1['arrival_time']
             train2['scroll_text'] = train2['station'].ljust(mid_pad2, ' ') + train2['arrival_time']
