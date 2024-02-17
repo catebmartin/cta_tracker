@@ -49,7 +49,6 @@ class RGBDisplayCountdown(Countdown):
         matrix = self.matrix_getter()
         canvas = matrix.CreateFrameCanvas()
         canvas.SetImage(self.image_thumbnail)
-        print(self.offset_text)
         if self.offset_text:
             image_end = self.image_thumbnail.width
             text_start = image_end+2
