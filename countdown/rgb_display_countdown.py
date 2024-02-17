@@ -49,8 +49,10 @@ class RGBDisplayCountdown(Countdown):
         canvas = matrix.CreateFrameCanvas()
         canvas.SetImage(self.image_thumbnail)
         # TODO: figure out how to center this
-        graphics.DrawText(canvas, self.font, 22, 6, self.color, str(days_until)+' days')
-        graphics.DrawText(canvas, self.font, 28, 16, self.color, 'until')
-        graphics.DrawText(canvas, self.font, 18, 26, self.color, self.event_display)
+        image_end = self.image_thumbnail.withdth
+        text_start = image_end+2
+        graphics.DrawText(canvas, self.font, text_start, 6, self.color, str(days_until)+' days')
+        graphics.DrawText(canvas, self.font, text_start, 16, self.color, 'until')
+        graphics.DrawText(canvas, self.font, text_start, 26, self.color, self.event_display)
         matrix.SwapOnVSync(canvas)
         time.sleep(3)
