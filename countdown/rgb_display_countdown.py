@@ -57,7 +57,7 @@ class RGBDisplayCountdown(Countdown):
         available_screen = matrix.width-text_start
         print_lst = [str(days_until)+' days', 'until', self.event_display]
         start_lst = [text_start+((available_screen-(len(x)*4))/2) for x in print_lst]
-        height_lst = [8, 19, 30]
+        height_lst = [8, 18, 29]
         graphics.DrawText(canvas, self.font, start_lst[0], height_lst[0], self.color, print_lst[0])
         graphics.DrawText(canvas, self.font, start_lst[1], height_lst[1], self.color, print_lst[1])
         graphics.DrawText(canvas, self.font, start_lst[2], height_lst[2], self.color, print_lst[2])
