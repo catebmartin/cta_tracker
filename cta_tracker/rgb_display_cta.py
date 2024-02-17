@@ -56,8 +56,28 @@ class RGBDisplayCTA(CTATracker):
             'station': train['destNm'],
             'time_until': str(int(divmod(difference.total_seconds(), 60)[0])),
             'text_color': RGBDisplayCTA.get_color(train['destNm']),
+            'arrival_time': arrival_time,
             'scroll_text': f"{train['destNm']}  {arrival_time}"
         }
+
+    @staticmethod
+    def scroll_comparison(train1, train2):
+        """
+        If the text is not the same length, then spread it out to be.
+        :param train1: Dictionary from train_cleaner
+        :param train2: Dictionary from train_cleaner
+        :return: Two dictionaries, train 1 and train2. Corrected 'scroll_text' if necessary.
+        """
+        assert len(train1['arrival_time']) == len(train2['arrival_time'])
+        if len(train1['scroll_text']) != len(train2['scroll_text']):
+            desired_len = max(len(train1['scroll_text']), len(train2['scroll_text']))
+            mid_pad = desired_len - min(len(train1['station']), len(train2['station'])) - len(train1['arrival_time'])
+            train1['scroll_text'] = train1['station'].ljust(mid_pad, ' ') + train1['arrival_time']
+            train2['scroll_text'] = train2['station'].ljust(mid_pad, ' ') + train2['arrival_time']
+            print(train1['scroll_text'])
+            print(train2['scroll_text'])
+            return train1, train2
+
 
     def scroll_one_train(self, train1):
         """
@@ -102,6 +122,7 @@ class RGBDisplayCTA(CTATracker):
 
         train1 = self.train_cleaner(train1)
         train2 = self.train_cleaner(train2)
+        train1, train2 = self.scroll_comparison(train1, train2)
         iter_count, scroll_count = 0, 0
 
         while scroll_count < 2:
