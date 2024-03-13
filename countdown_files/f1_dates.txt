@@ -1,6 +1,6 @@
 2024-03-02,Bahrain GP
 2024-03-09,Saudi Arabian GP
-2023-03-24,Australian GP
+2024-03-24,Australian GP
 2024-04-07,Japanese GP
 2024-04-19,Chinese GP
 2024-05-05,Miami GP
