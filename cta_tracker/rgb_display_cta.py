@@ -41,10 +41,19 @@ class RGBDisplayCTA(CTATracker):
         return font
 
     @staticmethod
-    def get_color(dest_in):
-        if dest_in == "O'Hare":
+    def get_color(train_in):
+        """
+        1. if train is delayed, return Red
+        2. if train belongs to certain set, return appropriate color
+        3. else return white
+        :param train_in: JSON corresponding to 1 train
+        :return: graphics.Color()
+        """
+        if train_in['isDly'] == '1':
+            return graphics.Color(255,0,0)
+        if train_in['destNm'] == "O'Hare":
             return graphics.Color(255, 255, 255)  # white
-        if dest_in in ["Forest Park", "UIC-Halsted"]:
+        if train_in['destNm'] in ["Forest Park", "UIC-Halsted"]:
             return graphics.Color(0, 157, 255)  # cta blue
         return graphics.Color(255, 255, 255)
 
@@ -55,7 +64,7 @@ class RGBDisplayCTA(CTATracker):
         return {
             'station': train['destNm'],
             'time_until': str(int(divmod(difference.total_seconds(), 60)[0])),
-            'text_color': RGBDisplayCTA.get_color(train['destNm']),
+            'text_color': RGBDisplayCTA.get_color(train),
             'arrival_time': arrival_time,
             'scroll_text': f"{train['destNm']}  {arrival_time}"
         }
