@@ -72,7 +72,7 @@ class LEDDisplay:
     def loop_display(self):
         # image handling is slow, so do it once up front
         milo_countdown = RGBDisplayCountdown('countdown_files/milo_dates.txt',  'images/milo_sticker.jpg', offset_text=True, color=(204, 102, 0))
-        f1_countdown = RGBDisplayCountdown('countdown_files/f1_dates', 'images/ferrari.jpg')
+        f1_countdown = RGBDisplayCountdown('countdown_files/f1_dates.txt', 'images/ferrari.jpg')
         while True:
             is_peak = self.time_in_range(self.peak_start, self.peak_end)
             is_sleep = self.time_in_range(self.sleep_start, self.sleep_end)

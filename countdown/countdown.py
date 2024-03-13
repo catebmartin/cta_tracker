@@ -31,7 +31,7 @@ class Countdown:
             current_line = f.readline()
             d_line = self.get_line_date(current_line)
             n_line = current_line.split(',')[1]
-        return d_line, n_line
+        return (d_line - d_today).days, n_line
 
     def image_getter(self):
         """Load and convert image"""
