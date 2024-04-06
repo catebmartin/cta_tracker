@@ -11,8 +11,8 @@ class RGBDisplayCountdown(Countdown):
     """
     # TODO: consider RGBDisplay master class. Inherit constructor, font loader, color loader
     # TODO: center and wrap text automatically
-    def __init__(self, date_of_event, event_display, image_location, offset_text = False, color=(255, 255, 255)):
-        Countdown.__init__(self, date_of_event, event_display, image_location)
+    def __init__(self, list_location, image_location, offset_text = False, color=(255, 255, 255)):
+        Countdown.__init__(self, list_location, image_location)
         self.font = self.font_getter()
         self.offset_text = offset_text
         self.color = graphics.Color(color[0], color[1], color[2])
@@ -45,7 +45,7 @@ class RGBDisplayCountdown(Countdown):
         return font
 
     def display_countdown(self):
-        days_until = Countdown.days_until_getter(self)
+        days_until, event_display = Countdown.current_line_getter(self)
         matrix = self.matrix_getter()
         canvas = matrix.CreateFrameCanvas()
         canvas.SetImage(self.image_thumbnail)
@@ -54,7 +54,7 @@ class RGBDisplayCountdown(Countdown):
         if self.offset_text:
             text_start += (self.image_thumbnail.width+2)
         available_screen = matrix.width-text_start
-        print_lst = [str(days_until)+' days', 'until', self.event_display]
+        print_lst = [str(days_until)+' days', 'until', event_display]
         start_lst = [text_start+((available_screen-(len(x)*4))/2) for x in print_lst]
         height_lst = [8, 18, 28]
         graphics.DrawText(canvas, self.font, start_lst[0], height_lst[0], self.color, print_lst[0])
