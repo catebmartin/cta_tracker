@@ -73,6 +73,7 @@ class LEDDisplay:
         # image handling is slow, so do it once up front
         milo_countdown = RGBDisplayCountdown('countdown_files/milo_dates.txt',  'images/milo_sticker.jpg', offset_text=True, color=(204, 102, 0))
         f1_countdown = RGBDisplayCountdown('countdown_files/f1_dates.txt', 'images/ferrari.jpg')
+        vacation_countdown = RGBDisplayCountdown('countdown_files/vacation_dates.txt', 'images/flag_netherlands.jpg', color=(0,0,0))
         while True:
             is_peak = self.time_in_range(self.peak_start, self.peak_end)
             is_sleep = self.time_in_range(self.sleep_start, self.sleep_end)
@@ -86,6 +87,7 @@ class LEDDisplay:
                 # display countdowns
                 milo_countdown.display_countdown()
                 f1_countdown.display_countdown()
+                vacation_countdown.display_countdown()
                 # display CTA tracker
                 rgb_display = RGBDisplayCTA(self.url_args)
                 rgb_display.display_json_response()
